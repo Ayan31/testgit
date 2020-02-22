@@ -1,13 +1,26 @@
 name: Greetings
 
-on: [pull_request, issues]
+on: [pull_request, issues, issue_comment]
 
 jobs:
-  greeting:
+  main:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        body:
+          - file://README.md
+          - Test of action completed successfully!
     steps:
-    - uses: actions/first-interaction@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        issue-message: 'Message that will be displayed on users'' first issue'
-        pr-message: 'Message that will be displayed on users'' first pr'
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Send mail
+        uses: ./
+        with:
+          server_address: ${{secrets.ADDRESS}}
+          server_port: 465
+          username: ${{secrets.USERNAME}}
+          password: ${{secrets.PASSWORD}}
+          subject: ${{github.repository}}
+          body: ${{matrix.body}}
+          to: ${{github.event.pusher.email}},${{secrets.USERNAME}}
+          from: github-actions
