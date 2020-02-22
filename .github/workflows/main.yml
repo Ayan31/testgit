@@ -3,7 +3,7 @@ name: first action
 on: [issue_comment]
 
 jobs:
-  trun1:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
