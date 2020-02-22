@@ -1,0 +1,24 @@
+name: first action
+
+on: [issue_comment]
+
+jobs:
+  trun1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      
+      - name: Send mail
+        uses: ./
+        with:
+          smtp-server: ${{ secrets.SMTP_SERVER }}
+          smtp-server-port: 465
+          auth-user: ${{ secrets.AUTH_USER }}
+          auth-password: ${{secrets.EMAIL_PASSWORD }}
+          subject: correciones a ${{github.repository}}
+          body: ${{github.context.payload}}
+          from: asatalluri@gmail.com  
+          to: asatalluri@gmail.com
+          is-tls: false
+          commit-message: true
