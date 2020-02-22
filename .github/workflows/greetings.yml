@@ -1,0 +1,27 @@
+name: Greetings
+
+on: [pull_request, issues]
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        body:
+          - file://README.md
+          - Test of action completed successfully!
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Send mail
+        uses: ./
+        with:
+          server_address: ${{secrets.ADDRESS}}
+          server_port: 465
+          username: ${{secrets.USERNAME}}
+          password: ${{secrets.PASSWORD}}
+          subject: ${{github.repository}}
+          body: ${{matrix.body}}
+          to: ${{github.event.pusher.email}},${{secrets.USERNAME}}
+          from: github-actions
+ 
