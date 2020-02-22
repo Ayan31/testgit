@@ -1,0 +1,38 @@
+name: Send email
+description: Send mail to multiple recipients
+author: dawidd6
+branding:
+  icon: mail
+  color: blue
+inputs:
+  server_address:
+    description: SMTP server address
+    required: true
+  server_port:
+    description: SMTP server port
+    required: true
+  username:
+    description: Authenticate as this user to SMTP server
+    required: true
+  password:
+    description: Authenticate with this password to SMTP server
+    required: true
+  subject:
+    description: Subject of mail message
+    required: true
+  body:
+    description: Body of mail message (might be a filename to read from)
+    required: true
+  to:
+    description: Recipients mail addresses (separated with comma)
+    required: true
+  from:
+    description: Full name of mail sender
+    required: true
+  content_type:
+    description: Content-Type HTTP header (MIME type)
+    required: false
+    default: text/plain
+runs:
+  using: docker
+  image: Dockerfile
