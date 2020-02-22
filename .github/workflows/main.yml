@@ -1,0 +1,23 @@
+name: send mail action
+
+on: [pull_request,issue_comment]
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      
+      - name: Send mail
+        uses: ./
+        with:
+          smtp-server: ${{ secrets.SMTP_SERVER }}
+          smtp-server-port: 25
+          auth-user: ${{ secrets.AUTH_USER }}
+          auth-password: ${{secrets.EMAIL_PASSWORD }}
+          subject: correciones a ${{github.repository}}
+          body: ${{github.context.payload}}
+          from: caribemediainforma@caribemedia.com.do
+          to: asatalluri@gmail.com
+          is-tls: false
+          commit-message: true
