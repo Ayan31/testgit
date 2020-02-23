@@ -10,7 +10,7 @@ jobs:
          id: CI
     
        - uses: actions/checkout@v1
-         run: |
+       - run: |
           ls -a
           echo downloaded files are in
        
