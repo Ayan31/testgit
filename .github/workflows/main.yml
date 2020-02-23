@@ -4,4 +4,9 @@ jobs:
   test:
     runs-on: [ubuntu-latest]
     steps:
+       - run: ls -a
        - run: echo hello world
+         name: step to download this repo - CI
+         id: CI
+         
+         
